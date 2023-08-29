@@ -1,3 +1,4 @@
+import pytest
 from aiogram import types
 
 import aiogram_tests.types.dataset as dataset
@@ -72,10 +73,8 @@ def test_as_object_converting_with_nesting():
     )
 
 
-def test_converting_all_dataset_items_to_model():
-    all_items = (getattr(dataset, name) for name in dir(dataset))
-    for item in all_items:
-        if not isinstance(item, DatasetItem):
-            continue
-
-        item.as_object()
+@pytest.mark.parametrize(
+    "item", filter(lambda i: isinstance(i, DatasetItem), (getattr(dataset, name) for name in dir(dataset)))
+)
+def test_converting_all_dataset_items_to_model(item):
+    item.as_object()

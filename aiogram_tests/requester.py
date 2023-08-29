@@ -55,13 +55,13 @@ class MockedBot:
 
         requests = self._handler.bot.session.requests
         result = {}
-        for r in requests:
-            method_name = camel_case2snake_case(r.method)
+        for r in requests:  # type: TelegramMethod
+            method_name = camel_case2snake_case(r.__api_method__)
 
             if method_name not in result:
                 result[method_name] = CallsList()
 
-            result[method_name].append(self._dict_to_obj(r.data))
+            result[method_name].append(self._dict_to_obj(r.model_dump()))
 
         return self._generate_result_obj(result)
 

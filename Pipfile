@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-aiogram = ">=3.0.0"
+aiogram = ">=3.0.0rc1"
 pytest = "*"
 pytest-asyncio = "*"
 
